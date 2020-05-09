@@ -11,7 +11,7 @@ headers = {
 
 get_days = int(input('請輸入回測天數: '))
 i = 0
-
+histroy_data = []
 while True:
     try:
         day_entry = i
@@ -32,6 +32,11 @@ while True:
         print(true_format)
         print('外資小台空單未平倉: ', sm_fu_put)
         print('外資小台多單未平倉: ', sm_fu_call)
+        histroy_data.append([true_format, sm_fu_call, sm_fu_put])
+        with open('histroy_data.csv', 'w', encoding = 'utf-8-sig') as f:
+            f.write('日期, 外資小台多單未平倉, 外資小台空單未平倉\n')
+            for p in histroy_data:
+                f.write(p[0] + ',' + str(p[1]) + ',' + str(p[2]) + '\n')
         if i == get_days:
             break
     except:
